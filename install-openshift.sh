@@ -154,7 +154,7 @@ if [ "$memory" -lt "4194304" ]; then
 	export METRICS="False"
 fi
 
-if [ "$memory" -lt "16777216" ]; then
+if [ "$memory" -lt "15234340" ]; then
 	export LOGGING="False"
 fi
 

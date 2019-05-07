@@ -4,7 +4,7 @@ metadata:
   name: vol
 spec:
   capacity:
-    storage: 500Gi 
+    storage: 80Gi 
   accessModes:
     - ReadWriteOnce     
     - ReadWriteMany
