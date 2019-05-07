@@ -145,6 +145,8 @@ systemctl enable docker
 # 	ssh -o StrictHostKeyChecking=no root@$IP "pwd"
 # fi
 
+ssh -v ${USERNAME}@$IP
+
 export METRICS="True"
 export LOGGING="True"
 
@@ -226,8 +228,8 @@ fi
 mkdir -p /etc/origin/master/
 touch /etc/origin/master/htpasswd
 
-ansible-playbook -b --become-method=sudo --become-user=${USERNAME} -v -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
-ansible-playbook -b --become-method=sudo --become-user=${USERNAME} -v -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
+ansible-playbook -v -i inventory.ini openshift-ansible/playbooks/prerequisites.yml
+ansible-playbook -v -i inventory.ini openshift-ansible/playbooks/deploy_cluster.yml
 
 htpasswd -b /etc/origin/master/htpasswd ${USERNAME} ${PASSWORD}
 oc adm policy add-cluster-role-to-user cluster-admin ${USERNAME}
