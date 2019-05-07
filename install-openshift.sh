@@ -139,16 +139,18 @@ fi
 systemctl restart docker
 systemctl enable docker
 
-if [ ! -f ~/.ssh/id_rsa ]; then
-	ssh-keygen -q -f ~/.ssh/id_rsa -N ""
-	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-	ssh -o StrictHostKeyChecking=no root@$IP "pwd"
-fi
+# if [ ! -f ~/.ssh/id_rsa ]; then
+# 	ssh-keygen -q -f ~/.ssh/id_rsa -N ""
+# 	cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# 	ssh -o StrictHostKeyChecking=no root@$IP "pwd"
+# fi
 
 export METRICS="True"
 export LOGGING="True"
 
 memory=$(cat /proc/meminfo | grep MemTotal | sed "s/MemTotal:[ ]*\([0-9]*\) kB/\1/")
+
+echo "$memory"
 
 if [ "$memory" -lt "4194304" ]; then
 	export METRICS="False"
@@ -157,6 +159,9 @@ fi
 if [ "$memory" -lt "15234340" ]; then
 	export LOGGING="False"
 fi
+
+echo "Metric $METRICS"
+echo "Logging $LOGGING"
 
 curl -o inventory.download $SCRIPT_REPO/inventory.ini
 envsubst < inventory.download > inventory.ini
