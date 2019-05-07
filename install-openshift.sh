@@ -145,6 +145,7 @@ systemctl enable docker
 # 	ssh -o StrictHostKeyChecking=no root@$IP "pwd"
 # fi
 
+echo "${USERNAME}@$IP"
 ssh -v ${USERNAME}@$IP
 
 export METRICS="True"
